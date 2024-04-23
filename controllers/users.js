@@ -32,4 +32,15 @@ export default class UserController {
   delete = async (req, res) => {
 
   }
+
+  login = async (req, res) => {
+    const { body } = req
+    const result = await userService.login({ body })
+
+    if (result.error) {
+      res.status(401).json(result.error)
+    } else {
+      res.json(result)
+    }
+  }
 }
