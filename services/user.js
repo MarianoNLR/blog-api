@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 class UserService {
   async getAll () {
@@ -29,6 +30,31 @@ class UserService {
     const result = await User.findOneAndUpdate(filter, update)
 
     return result
+  }
+
+  async login ({ body }) {
+    const { username, password } = body
+
+    const [user] = await User.find({ username })
+    console.log(user)
+
+    const passwordMatch = !user ? false : await bcrypt.compare(password, user.password)
+
+    if (!(user && passwordMatch)) {
+      return { error: 'invalid password or username' }
+    }
+
+    const userToken = {
+      username: user.username,
+      name: user.name
+    }
+
+    const token = jwt.sign(
+      userToken,
+      'secret'
+    )
+
+    return { name: user.name, token }
   }
 }
 
