@@ -9,7 +9,7 @@ export const userExtractor = (request, response, next) => {
   }
 
   const decodedToken = jwt.verify(token, 'secret')
-
+  console.log(decodedToken)
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }

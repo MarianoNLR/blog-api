@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import UserController from '../controllers/users.js'
+// eslint-disable-next-line no-unused-vars
 import { userExtractor } from '../middleware/userExtractor.js'
 
 export const createUserRouter = () => {

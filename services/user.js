@@ -45,6 +45,7 @@ class UserService {
     }
 
     const userToken = {
+      id: user._id,
       username: user.username,
       name: user.name
     }
@@ -54,7 +55,7 @@ class UserService {
       'secret'
     )
 
-    return { name: user.name, token }
+    return { name: user.name, username: user.username, token }
   }
 }
 
