@@ -1,6 +1,6 @@
 import { Post } from '../models/Post.js'
 
-class BlogService {
+class PostService {
   async getAll () {
     const result = await Post.find({})
       .populate('user', 'name username -_id')
@@ -32,11 +32,11 @@ class BlogService {
     }
   }
 
-  async update ({ blogId, body }) {
+  async update ({ postId, body }) {
     const { title, description } = body
 
     try {
-      const filter = blogId
+      const filter = postId
       const update = { title, description }
 
       const result = await Post.findOneAndUpdate(filter, update)
@@ -54,4 +54,4 @@ class BlogService {
   }
 }
 
-export default new BlogService()
+export default new PostService()

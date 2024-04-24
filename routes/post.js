@@ -1,17 +1,17 @@
 import { Router } from 'express'
-import BlogController from '../controllers/posts.js'
+import PostController from '../controllers/posts.js'
 import { userExtractor } from '../middleware/userExtractor.js'
 
-export const createBlogRouter = () => {
-  const blogRouter = Router()
-  const blogController = new BlogController()
+export const createpostRouter = () => {
+  const postRouter = Router()
+  const postController = new PostController()
 
-  blogRouter.get('/', blogController.getAll)
-  blogRouter.post('/', userExtractor, blogController.create)
-  blogRouter.put('/:id', blogController.update)
-  blogRouter.delete('/:id', blogController.delete)
+  postRouter.get('/', postController.getAll)
+  postRouter.post('/', userExtractor, postController.create)
+  postRouter.put('/:id', postController.update)
+  postRouter.delete('/:id', postController.delete)
 
-  return blogRouter
+  return postRouter
 }
 
-export const blogRouter = Router()
+export const postRouter = Router()

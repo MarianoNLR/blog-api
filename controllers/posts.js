@@ -1,15 +1,15 @@
-import blogService from '../services/post.js'
+import postService from '../services/post.js'
 
-export default class BlogController {
+export default class PostController {
   getAll = async (req, res) => {
-    const results = await blogService.getAll()
+    const results = await postService.getAll()
     res.json(results)
   }
 
   create = async (req, res) => {
     const { body } = req
     const { userId } = req
-    const result = await blogService.create({ body, userId })
+    const result = await postService.create({ body, userId })
 
     if (result.error) {
       return res.status(400).json({ error: result.error })
@@ -19,10 +19,10 @@ export default class BlogController {
   }
 
   update = async (req, res) => {
-    const { blogId } = req.params
+    const { postId } = req.params
     const { body } = req
 
-    const result = await blogService.update({ blogId, body })
+    const result = await postService.update({ postId, body })
 
     res.json(result)
   }
