@@ -24,7 +24,7 @@ export default class PostController {
 
     const result = await postService.update({ postId, body })
 
-    res.json(result)
+    return res.json(result)
   }
 
   delete = async (req, res) => {
@@ -32,6 +32,6 @@ export default class PostController {
     const result = await postService.delete({ id })
 
     if (result.error) return res.status(404).json(result)
-    res.status(200)
+    return res.status(200).json()
   }
 }
