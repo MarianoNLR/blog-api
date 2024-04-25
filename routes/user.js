@@ -11,6 +11,7 @@ export const createUserRouter = () => {
   userRouter.post('/login', userController.login)
   userRouter.post('/', userController.create)
   userRouter.put('/:username', userController.update)
+  userRouter.delete('/:id', userController.delete)
 
   return userRouter
 }

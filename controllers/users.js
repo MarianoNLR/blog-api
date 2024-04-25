@@ -30,7 +30,9 @@ export default class UserController {
   }
 
   delete = async (req, res) => {
-
+    const { id } = req.params
+    const result = await userService.delete({ id })
+    res.json(result)
   }
 
   login = async (req, res) => {

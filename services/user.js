@@ -1,4 +1,5 @@
 import User from '../models/User.js'
+import { Post } from '../models/Post.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -56,6 +57,17 @@ class UserService {
     )
 
     return { name: user.name, username: user.username, token }
+  }
+
+  async delete ({ id }) {
+    try {
+      await Post.deleteMany({ user: id })
+      const result = await User.deleteOne({ _id: id })
+      if (result.deletedCount === 1) return result
+      return { error: 'There was a problem deleting your account. Try again later.' }
+    } catch (error) {
+      return { error }
+    }
   }
 }
 
