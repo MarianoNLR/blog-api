@@ -3,6 +3,8 @@ import { Post } from '../models/Post.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+const { JWT_SECRET } = process.env
+
 class UserService {
   async getAll () {
     const result = await User.find({})
@@ -53,7 +55,7 @@ class UserService {
 
     const token = jwt.sign(
       userToken,
-      'secret'
+      JWT_SECRET
     )
 
     return { name: user.name, username: user.username, token }
