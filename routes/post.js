@@ -2,7 +2,7 @@ import { Router } from 'express'
 import PostController from '../controllers/posts.js'
 import { userExtractor } from '../middleware/userExtractor.js'
 
-export const createpostRouter = () => {
+export const createPostRouter = () => {
   const postRouter = Router()
   const postController = new PostController()
 
