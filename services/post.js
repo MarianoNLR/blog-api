@@ -1,4 +1,6 @@
 import { Post } from '../models/Post.js'
+import User from '../models/User.js'
+import mongoose from 'mongoose'
 
 class PostService {
   async getAll () {
@@ -16,7 +18,8 @@ class PostService {
 
   async create ({ body, userId }) {
     const { title, description } = body
-
+    const session = await mongoose.startSession()
+    session.startTransaction()
     try {
       const newPost = new Post({
         title,
@@ -25,10 +28,18 @@ class PostService {
       })
 
       const resultCreate = await newPost.save()
+      await User.updateOne(
+        { _id: userId },
+        { $push: { posts: resultCreate.id } }
+      )
+      await session.commitTransaction()
 
       return resultCreate
     } catch (error) {
+      await session.abortTransaction()
       return error
+    } finally {
+      session.endSession()
     }
   }
 

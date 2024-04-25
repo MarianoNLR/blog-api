@@ -10,7 +10,7 @@ export default class PostController {
     const { body } = req
     const { userId } = req
     const result = await postService.create({ body, userId })
-
+    console.log(result)
     if (result.error) {
       return res.status(400).json({ error: result.error })
     }
