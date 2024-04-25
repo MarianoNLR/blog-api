@@ -14,4 +14,4 @@ export const createPostRouter = () => {
   return postRouter
 }
 
-export const postRouter = Router()
+// export const postRouter = Router()

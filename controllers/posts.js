@@ -28,6 +28,10 @@ export default class PostController {
   }
 
   delete = async (req, res) => {
+    const { id } = req.params
+    const result = await postService.delete({ id })
 
+    if (result.error) return res.status(404).json(result)
+    res.status(200)
   }
 }

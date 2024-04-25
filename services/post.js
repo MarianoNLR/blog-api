@@ -49,8 +49,15 @@ class PostService {
     }
   }
 
-  async delete () {
+  async delete ({ id }) {
+    try {
+      const result = await Post.deleteOne({ _id: id })
 
+      if (result.deletedCount === 0) return { error: 'Post not found.' }
+      return result
+    } catch (error) {
+      return { error: 'An error has ocurred. Try again later.' }
+    }
   }
 }
 
