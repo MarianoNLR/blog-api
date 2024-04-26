@@ -70,6 +70,21 @@ class PostService {
       return { error: 'An error has ocurred. Try again later.' }
     }
   }
+
+  async like ({ id }) {
+    try {
+      const result = await Post.updateOne(
+        { _id: id },
+        { $inc: { likes: 1 } }
+      )
+
+      if (result.modifiedCount === 0) return { error: 'An error has ocurred.' }
+
+      return result
+    } catch (error) {
+      return { error }
+    }
+  }
 }
 
 export default new PostService()

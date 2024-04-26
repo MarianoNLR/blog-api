@@ -10,7 +10,7 @@ export default class PostController {
     const { body } = req
     const { userId } = req
     const result = await postService.create({ body, userId })
-    console.log(result)
+
     if (result.error) {
       return res.status(400).json({ error: result.error })
     }
@@ -33,5 +33,14 @@ export default class PostController {
 
     if (result.error) return res.status(404).json(result)
     return res.status(200).json()
+  }
+
+  like = async (req, res) => {
+    const { id } = req.params
+    const result = await postService.like({ id })
+
+    if (result.error) return res.json(result)
+
+    return res.sendStatus(200)
   }
 }
