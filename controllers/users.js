@@ -40,9 +40,9 @@ export default class UserController {
     const result = await userService.login({ body })
 
     if (result.error) {
-      res.status(401).json(result.error)
+      return res.status(401).json(result.error)
     } else {
-      res.json(result)
+      return res.status(200).json(result)
     }
   }
 }
