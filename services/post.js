@@ -16,6 +16,17 @@ class PostService {
     return result
   }
 
+  async getById ({ id }) {
+    const result = await Post.findById(id)
+      .populate('user', 'name username -_id')
+      .then(post => { return post })
+      .catch(err => {
+        return { error: err }
+      })
+
+    return result
+  }
+
   async create ({ body, userId }) {
     const { title, description } = body
     const session = await mongoose.startSession()

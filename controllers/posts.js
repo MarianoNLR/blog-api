@@ -6,6 +6,13 @@ export default class PostController {
     res.json(results)
   }
 
+  getById = async (req, res) => {
+    const { id } = req.params
+    const result = await postService.getById({ id })
+
+    return res.json(result)
+  }
+
   create = async (req, res) => {
     const { body } = req
     const { userId } = req

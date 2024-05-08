@@ -7,6 +7,7 @@ export const createPostRouter = () => {
   const postController = new PostController()
 
   postRouter.get('/', postController.getAll)
+  postRouter.get('/:id', postController.getById)
   postRouter.post('/', userExtractor, postController.create)
   postRouter.put('/:id', postController.update)
   postRouter.delete('/:id', postController.delete)
