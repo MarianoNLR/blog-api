@@ -84,8 +84,6 @@ class PostService {
 
   async like ({ id, userId }) {
     try {
-      const user = await User.findById(userId)
-      console.log(user.likes)
       await User.updateOne(
         { _id: userId },
         { $push: { likes: id } }
@@ -94,6 +92,26 @@ class PostService {
       const result = await Post.updateOne(
         { _id: id },
         { $inc: { likes: 1 }, $push: { usersLike: userId } }
+      )
+
+      if (result.modifiedCount === 0) return { error: 'An error has ocurred.' }
+
+      return result
+    } catch (error) {
+      return { error }
+    }
+  }
+
+  async unlike ({ id, userId }) {
+    try {
+      await User.updateOne(
+        { _id: userId },
+        { $pull: { likes: id } }
+      )
+
+      const result = await Post.updateOne(
+        { _id: id },
+        { $inc: { likes: -1 }, $pull: { usersLike: userId } }
       )
 
       if (result.modifiedCount === 0) return { error: 'An error has ocurred.' }
