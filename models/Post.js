@@ -14,7 +14,11 @@ const postSchema = new Schema({
   likes: {
     type: Number,
     default: 0
-  }
+  },
+  usersLike: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, { timestamps: true })
 
 postSchema.set('toJSON', {
