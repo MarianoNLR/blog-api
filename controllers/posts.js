@@ -51,4 +51,14 @@ export default class PostController {
 
     return res.sendStatus(200)
   }
+
+  unlike = async (req, res) => {
+    const { id } = req.params
+    const { userId } = req
+    const result = await postService.unlike({ id, userId })
+
+    if (result.error) return res.json(result)
+
+    return res.sendStatus(200)
+  }
 }
