@@ -93,7 +93,7 @@ class PostService {
 
       const result = await Post.updateOne(
         { _id: id },
-        { $inc: { likes: 1 } }
+        { $inc: { likes: 1 }, $push: { usersLike: userId } }
       )
 
       if (result.modifiedCount === 0) return { error: 'An error has ocurred.' }
