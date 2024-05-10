@@ -82,8 +82,15 @@ class PostService {
     }
   }
 
-  async like ({ id }) {
+  async like ({ id, userId }) {
     try {
+      const user = await User.findById(userId)
+      console.log(user.likes)
+      await User.updateOne(
+        { _id: userId },
+        { $push: { likes: id } }
+      )
+
       const result = await Post.updateOne(
         { _id: id },
         { $inc: { likes: 1 } }

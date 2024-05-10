@@ -11,7 +11,7 @@ export const createPostRouter = () => {
   postRouter.post('/', userExtractor, postController.create)
   postRouter.put('/:id', postController.update)
   postRouter.delete('/:id', postController.delete)
-  postRouter.post('/:id/like', postController.like)
+  postRouter.post('/:id/like', userExtractor, postController.like)
   return postRouter
 }
 

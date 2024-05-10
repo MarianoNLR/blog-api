@@ -44,7 +44,8 @@ export default class PostController {
 
   like = async (req, res) => {
     const { id } = req.params
-    const result = await postService.like({ id })
+    const { userId } = req
+    const result = await postService.like({ id, userId })
 
     if (result.error) return res.json(result)
 
