@@ -58,7 +58,7 @@ class UserService {
       JWT_SECRET
     )
 
-    return { name: user.name, username: user.username, token }
+    return { name: user.name, username: user.username, id: user._id, token }
   }
 
   async delete ({ id }) {
