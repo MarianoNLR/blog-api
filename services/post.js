@@ -121,6 +121,26 @@ class PostService {
       return { error }
     }
   }
+
+  async addComment ({ postId, userId, comment }) {
+    try {
+      const result = await Post.updateOne(
+        { _id: postId },
+        {
+          $push: {
+            comments: {
+              userId,
+              comment,
+              timestamp: new Date()
+            }
+          }
+        }
+      )
+      return result
+    } catch (error) {
+      return { error }
+    }
+  }
 }
 
 export default new PostService()
