@@ -61,4 +61,15 @@ export default class PostController {
 
     return res.sendStatus(200)
   }
+
+  addComment = async (req, res) => {
+    const { id: postId } = req.params
+    const { userId } = req
+    const { comment } = req.body
+    const result = await postService.addComment({ postId, userId, comment })
+    console.log(result)
+    if (result.error) return res.json(result)
+
+    return res.sendStatus(200)
+  }
 }
