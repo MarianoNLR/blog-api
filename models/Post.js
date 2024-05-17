@@ -21,6 +21,7 @@ const postSchema = new Schema({
   }],
   comments: [{
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    username: { type: String },
     comment: { type: String },
     timeStamp: { type: Date, default: Date.now }
   }]
