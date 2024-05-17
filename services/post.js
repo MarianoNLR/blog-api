@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 class PostService {
   async getAll () {
-    const result = await Post.find({})
+    const result = await Post.find({}).sort({ createdAt: -1 })
       .populate('user', 'name username -_id')
       .then(posts => {
         return posts
