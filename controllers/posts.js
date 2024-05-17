@@ -9,7 +9,6 @@ export default class PostController {
   getById = async (req, res) => {
     const { id } = req.params
     const result = await postService.getById({ id })
-
     return res.json(result)
   }
 

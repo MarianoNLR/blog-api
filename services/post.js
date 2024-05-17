@@ -12,7 +12,6 @@ class PostService {
       .catch(err => {
         return { error: err }
       })
-
     return result
   }
 
@@ -23,7 +22,7 @@ class PostService {
       .catch(err => {
         return { error: err }
       })
-
+    result.comments.sort((a, b) => b.timeStamp - a.timeStamp)
     return result
   }
 
@@ -124,12 +123,15 @@ class PostService {
 
   async addComment ({ postId, userId, comment }) {
     try {
+      const user = await User.findById(userId)
+
       const result = await Post.updateOne(
         { _id: postId },
         {
           $push: {
             comments: {
               userId,
+              username: user.username,
               comment,
               timestamp: new Date()
             }
