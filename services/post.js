@@ -3,8 +3,9 @@ import User from '../models/User.js'
 import mongoose from 'mongoose'
 
 class PostService {
-  async getAll () {
-    const result = await Post.find({}).sort({ createdAt: -1 })
+  async getAll ({ page }) {
+    const pageSize = 5
+    const result = await Post.find({}).sort({ createdAt: -1 }).skip((page - 1) * 5).limit(pageSize)
       .populate('user', 'name username -_id')
       .then(posts => {
         return posts
@@ -12,7 +13,14 @@ class PostService {
       .catch(err => {
         return { error: err }
       })
-    return result
+
+    const totalPosts = await Post.countDocuments()
+
+    return {
+      posts: result,
+      totalPages: Math.ceil(totalPosts / pageSize),
+      currentPage: page
+    }
   }
 
   async getById ({ id }) {
