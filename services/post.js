@@ -3,23 +3,24 @@ import User from '../models/User.js'
 import mongoose from 'mongoose'
 
 class PostService {
-  async getAll ({ page }) {
+  async getAll ({ currentPage }) {
+    console.log('primera llamada', currentPage)
     const pageSize = 5
-    const result = await Post.find({}).sort({ createdAt: -1 }).skip((page - 1) * 5).limit(pageSize)
-      .populate('user', 'name username -_id')
-      .then(posts => {
-        return posts
-      })
-      .catch(err => {
-        return { error: err }
-      })
+    try {
+      const result = await Post.find({}).sort({ createdAt: -1 })
+        .skip((currentPage - 1) * pageSize)
+        .limit(pageSize)
+        .populate('user', 'name username -_id')
 
-    const totalPosts = await Post.countDocuments()
-
-    return {
-      posts: result,
-      totalPages: Math.ceil(totalPosts / pageSize),
-      currentPage: page
+      const totalPosts = await Post.countDocuments()
+      console.log(result)
+      return {
+        posts: result,
+        totalPages: Math.ceil(totalPosts / pageSize),
+        page: currentPage
+      }
+    } catch (err) {
+      return { error: err }
     }
   }
 
