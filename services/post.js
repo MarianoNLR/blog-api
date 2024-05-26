@@ -26,7 +26,7 @@ class PostService {
 
   async getById ({ id }) {
     const result = await Post.findById(id)
-      .populate('user', 'name username -_id')
+      .populate('user', 'name username')
       .then(post => { return post })
       .catch(err => {
         return { error: err }
@@ -79,8 +79,14 @@ class PostService {
     }
   }
 
-  async delete ({ id }) {
+  async delete ({ id, userId }) {
     try {
+      console.log(userId)
+      // TODO: control to only delete post if the request is from de author
+      const userPost = await User.findById(userId)
+
+      if (!userPost.posts.includes(id)) return { error: 'An error has ocurred.' }
+
       const result = await Post.deleteOne({ _id: id })
 
       if (result.deletedCount === 0) return { error: 'Post not found.' }
