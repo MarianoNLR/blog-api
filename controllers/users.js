@@ -6,6 +6,12 @@ export default class UserController {
     res.json(result)
   }
 
+  getById = async (req, res) => {
+    const { userId: id } = req
+    const result = await userService.getById({ id })
+    res.json(result)
+  }
+
   create = async (req, res) => {
     const { body } = req
 
