@@ -2,8 +2,8 @@ import postService from '../services/post.js'
 
 export default class PostController {
   getAll = async (req, res) => {
-    const { currentPage } = req.query
-    const results = await postService.getAll({ currentPage })
+    const { userId, currentPage } = req.query
+    const results = await postService.getAll({ userId, currentPage })
     res.json(results)
   }
 
