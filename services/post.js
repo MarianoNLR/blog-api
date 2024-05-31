@@ -3,11 +3,12 @@ import User from '../models/User.js'
 import mongoose from 'mongoose'
 
 class PostService {
-  async getAll ({ currentPage }) {
-    console.log('primera llamada', currentPage)
+  async getAll ({ userId, currentPage }) {
+    const filter = {}
+    if (userId) filter.user = userId
     const pageSize = 5
     try {
-      const result = await Post.find({}).sort({ createdAt: -1 })
+      const result = await Post.find(filter).sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize)
         .populate('user', 'name username -_id')
