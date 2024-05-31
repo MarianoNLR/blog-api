@@ -11,6 +11,11 @@ class UserService {
     return result
   }
 
+  async getById ({ id }) {
+    const result = await User.findById(id)
+    return result
+  }
+
   async createUser ({ body }) {
     const { username, name, password } = body
     const passwordHash = await bcrypt.hash(password, 10)
