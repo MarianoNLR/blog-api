@@ -7,7 +7,8 @@ export const createUserRouter = () => {
   const userRouter = Router()
   const userController = new UserController()
 
-  userRouter.get('/', userController.getAll)
+  userRouter.get('/', userExtractor, userController.getAll)
+  userRouter.get('/:id', userExtractor, userController.getById)
   userRouter.post('/login', userController.login)
   userRouter.post('/', userController.create)
   userRouter.put('/:username', userController.update)
